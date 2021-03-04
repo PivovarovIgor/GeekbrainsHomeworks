@@ -45,18 +45,28 @@ public class BattleshipGame {
             System.out.printf("Не удалось выполнить размещение кораблей в количестве %d игровое поле %d X %d. Задайте более приемлемые параметры.", ships, size, size);
             return false;
         }
-        int hits = 0;
-        while (hits < ships) {
+        int decks = decksCount(board);
+        while (decks > 0) {
             printBoard(board);
             boolean isHit = makeMove(board);
             if (isHit) {
                 System.out.println("\nПопал!");
-                ++hits;
+                --decks;
             } else {
                 System.out.println("\nПромазал!");
             }
         }
         return true;
+    }
+
+    private static int decksCount(int[][] board) {
+        int result = 0;
+        for (int i = 0; i < board.length; i++){
+            for (int cell : board[i]) {
+                result += (cell == SHIP) ? 1 : 0;
+            }
+        }
+        return result;
     }
 
     private static boolean makeMove(int[][] board) {
