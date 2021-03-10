@@ -1,5 +1,3 @@
-
-import java.util.Arrays;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -13,9 +11,10 @@ public class BattleshipGame {
     private static final int DEFAULT_SHIPS = 10;
 
     public static void main(String[] args) {
-        System.out.println("" +
-                "            Привет!\n" +
-                "     Сыграем в морской бой!\n");
+        System.out.println("""
+                            Привет!
+                     Сыграем в морской бой!
+                """);
         do {
             int size = DEFAULT_SIZE;
             int ships = DEFAULT_SHIPS;
@@ -25,7 +24,7 @@ public class BattleshipGame {
             }
             if (!play(size, ships)) {
                 return;
-            };
+            }
         } while (isPlayAgain());
     }
 
@@ -61,8 +60,8 @@ public class BattleshipGame {
 
     private static int decksCount(int[][] board) {
         int result = 0;
-        for (int i = 0; i < board.length; i++){
-            for (int cell : board[i]) {
+        for (int[] ints : board) {
+            for (int cell : ints) {
                 result += (cell == SHIP) ? 1 : 0;
             }
         }
@@ -89,7 +88,7 @@ public class BattleshipGame {
 
     private static int[][] generateBoard(int size, int ships) {
         int[][] board = new int[size][size];
-        int[] numberOfDecks = new int[] {ships / 3, ships / 5, ships / 10};
+        int[] numberOfDecks = new int[]{ships / 3, ships / 5, ships / 10};
         int decks = checkNextDecks(numberOfDecks);
         Random rnd = new Random();
         for (int i = ships - 1; i >= 0; i--) {
@@ -98,8 +97,7 @@ public class BattleshipGame {
             int attempts = 50;
 
             do {
-                if (attempts == 0)
-                {
+                if (attempts == 0) {
                     return null; // не удаётся разместить корабли
                 }
                 attempts--;
