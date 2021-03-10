@@ -106,7 +106,7 @@ public class BattleshipGame {
 
                 i1 = rnd.nextInt(size);
                 i2 = rnd.nextInt(size);
-            } while (!SetShip(board, decks, i1, i2));
+            } while (!setShip(board, decks, i1, i2));
             if (decks > 1) {
                 numberOfDecks[decks - 2]--;
                 decks = checkNextDecks(numberOfDecks);
@@ -124,7 +124,7 @@ public class BattleshipGame {
         return 1;
     }
 
-    private static boolean SetShip(int[][] board, int decks, int i1, int i2) {
+    private static boolean setShip(int[][] board, int decks, int i1, int i2) {
 
         Random rnd = new Random();
         int vertical = rnd.nextInt(2);
