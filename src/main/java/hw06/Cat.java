@@ -17,20 +17,4 @@ public class Cat extends Animal {
     public String toString() {
         return String.format("Кот '%s'", super.toString());
     }
-
-    @Override
-    public void run(double distance) {
-        Animal.run(this, distance);
-    }
-
-    @Override
-    public void swim(double distance) {
-        Animal.swim(this, distance);
-    }
-
-    @Override
-    public void relax() {
-        super.relax();
-        System.out.printf("%s - отдохнул, сейчас может пробежать %f и проплыть %f\n", this.toString(), this.getLeftToRun(), this.getLeftToSwim());
-    }
 }
