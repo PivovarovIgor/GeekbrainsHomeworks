@@ -2,7 +2,13 @@ package hw06;
 
 public class Cat extends Animal {
 
+    private final static double DEFAULT_MAX_RUN = 200;
+
     private static int count = 0;
+
+    private static void count() {
+        Cat.count++;
+    }
 
     public static int getCount() {
         return count;
@@ -10,7 +16,12 @@ public class Cat extends Animal {
 
     public Cat(String name, double maxRun) {
         super(name, maxRun);
-        Cat.count++;
+        count();
+    }
+
+    public Cat(String name, int appetite) {
+        super(name, appetite);
+        count();
     }
 
     @Override
