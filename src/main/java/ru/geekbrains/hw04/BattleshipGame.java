@@ -3,16 +3,17 @@ package ru.geekbrains.hw04;
 import java.util.Random;
 import java.util.Scanner;
 
+import static ru.geekbrains.hw04.CellStatuses.*;
+
 public class BattleshipGame {
-    private static final int EMPTY = 0;
-    private static final int SHIP = 1;
-    private static final int HIT_SHIP = -1;
-    private static final int HIT = -2;
 
     private static final int DEFAULT_SIZE = 10;
     private static final int DEFAULT_SHIPS = 10;
 
     public static void main(String[] args) {
+
+        setDebugMode(true);
+
         System.out.println("""
                             Привет!
                      Сыграем в морской бой!
@@ -41,7 +42,7 @@ public class BattleshipGame {
     }
 
     private static boolean play(int size, int ships) {
-        int[][] board = generateBoard(size, ships);
+        CellStatuses[][] board = generateBoard(size, ships);
         if (board == null) {
             System.out.printf("Не удалось выполнить размещение кораблей в количестве %d игровое поле %d X %d. Задайте более приемлемые параметры.", ships, size, size);
             return false;
@@ -60,17 +61,17 @@ public class BattleshipGame {
         return true;
     }
 
-    private static int decksCount(int[][] board) {
+    private static int decksCount(CellStatuses[][] board) {
         int result = 0;
-        for (int[] ints : board) {
-            for (int cell : ints) {
+        for (CellStatuses[] ints : board) {
+            for (CellStatuses cell : ints) {
                 result += (cell == SHIP) ? 1 : 0;
             }
         }
         return result;
     }
 
-    private static boolean makeMove(int[][] board) {
+    private static boolean makeMove(CellStatuses[][] board) {
         int row, line;
         int size = board[0].length;
         System.out.print("\nВаш ход: ");
@@ -80,7 +81,9 @@ public class BattleshipGame {
             row = move.charAt(0) - 'A';
             line = Integer.parseInt(move.substring(1)) - 1;
         } while (row < 0 || row >= size || line < 0 || line >= size);
-        if (board[line][row] == SHIP) {
+        if (board[line][row] == HIT_SHIP) {
+            return false;
+        }if (board[line][row] == SHIP) {
             board[line][row] = HIT_SHIP;
             return true;
         }
@@ -88,8 +91,13 @@ public class BattleshipGame {
         return false;
     }
 
-    private static int[][] generateBoard(int size, int ships) {
-        int[][] board = new int[size][size];
+    private static CellStatuses[][] generateBoard(int size, int ships) {
+        CellStatuses[][] board = new CellStatuses[size][size];
+        for (CellStatuses[] line: board) {
+            for (int i = 0; i < line.length; i++) {
+                line[i] = EMPTY;
+            }
+        }
         int[] numberOfDecks = new int[]{ships / 3, ships / 5, ships / 10};
         int decks = checkNextDecks(numberOfDecks);
         Random rnd = new Random();
@@ -124,7 +132,7 @@ public class BattleshipGame {
         return 1;
     }
 
-    private static boolean setShip(int[][] board, int decks, int i1, int i2) {
+    private static boolean setShip(CellStatuses[][] board, int decks, int i1, int i2) {
 
         Random rnd = new Random();
         int vertical = rnd.nextInt(2);
@@ -150,7 +158,7 @@ public class BattleshipGame {
         return true;
     }
 
-    private static boolean checkToSetDeck(int[][] board, int i1, int i2) {
+    private static boolean checkToSetDeck(CellStatuses[][] board, int i1, int i2) {
         for (int i = Math.max(i1 - 1, 0); i <= Math.min(i1 + 1, board.length - 1); i++) {
             for (int j = Math.max(i2 - 1, 0); j <= Math.min(i2 + 1, board[i].length - 1); j++) {
                 if (board[i][j] == SHIP) {
@@ -161,30 +169,17 @@ public class BattleshipGame {
         return true;
     }
 
-    private static void printBoard(int[][] board) {
+    private static void printBoard(CellStatuses[][] board) {
         System.out.print("    ");
         for (char i = 'A'; i < board[0].length + 'A'; i++) {
             System.out.print(" " + i + " ");
         }
         System.out.println();
         int i = 0;
-        for (int[] lines : board) {
+        for (CellStatuses[] lines : board) {
             System.out.printf("%3d ", ++i);
-            for (int cell : lines) {
-                switch (cell) {
-                    case EMPTY:
-                        System.out.print(" . ");
-                        break;
-                    case SHIP:
-                        System.out.print("[ ]");
-                        break;
-                    case HIT:
-                        System.out.print(" x ");
-                        break;
-                    case HIT_SHIP:
-                        System.out.print("[X]");
-                        break;
-                }
+            for (CellStatuses cell : lines) {
+                System.out.print(cell);
             }
             System.out.println();
         }
