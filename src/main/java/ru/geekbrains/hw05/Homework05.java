@@ -1,3 +1,5 @@
+package ru.geekbrains.hw05;
+
 public class Homework05 {
 
     public static void main(String[] args) {

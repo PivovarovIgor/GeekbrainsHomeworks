@@ -1,3 +1,5 @@
+package ru.geekbrains.hw04;
+
 import java.util.Random;
 import java.util.Scanner;
 

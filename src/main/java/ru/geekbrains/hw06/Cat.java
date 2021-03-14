@@ -1,4 +1,4 @@
-package hw06;
+package ru.geekbrains.hw06;
 
 public class Cat extends Animal {
 

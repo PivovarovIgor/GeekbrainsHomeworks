@@ -1,4 +1,4 @@
-package hw07;
+package ru.geekbrains.hw06;
 
 public class Plate {
 

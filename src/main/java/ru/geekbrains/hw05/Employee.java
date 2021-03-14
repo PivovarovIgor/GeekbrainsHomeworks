@@ -1,3 +1,5 @@
+package ru.geekbrains.hw05;
+
 public class Employee {
 
     private String fullName;

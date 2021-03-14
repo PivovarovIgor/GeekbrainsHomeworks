@@ -1,3 +1,5 @@
+package ru.geekbrains.hw02;
+
 import java.util.Arrays;
 
 public class Homework02 {
