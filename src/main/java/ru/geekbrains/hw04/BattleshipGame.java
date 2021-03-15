@@ -1,5 +1,6 @@
 package ru.geekbrains.hw04;
 
+import java.util.Objects;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -25,9 +26,7 @@ public class BattleshipGame {
                 size = Integer.parseInt(args[0]);
                 ships = Integer.parseInt(args[1]);
             }
-            if (!play(size, ships)) {
-                return;
-            }
+            play(size, ships);
         } while (isPlayAgain());
     }
 
@@ -41,12 +40,10 @@ public class BattleshipGame {
         return answer == 1;
     }
 
-    private static boolean play(int size, int ships) {
+    private static void play(int size, int ships) {
         CellStatuses[][] board = generateBoard(size, ships);
-        if (board == null) {
-            System.out.printf("Не удалось выполнить размещение кораблей в количестве %d игровое поле %d X %d. Задайте более приемлемые параметры.", ships, size, size);
-            return false;
-        }
+        Objects.requireNonNull(board, "Не удалось выполнить размещение кораблей в " +
+                "количестве %d игровое поле %d X %d. Задайте более приемлемые параметры.");
         int decks = decksCount(board);
         while (decks > 0) {
             printBoard(board);
@@ -58,7 +55,6 @@ public class BattleshipGame {
                 System.out.println("\nПромазал!");
             }
         }
-        return true;
     }
 
     private static int decksCount(CellStatuses[][] board) {
