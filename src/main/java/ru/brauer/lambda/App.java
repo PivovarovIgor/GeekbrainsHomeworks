@@ -31,7 +31,7 @@ public class App {
         //сортировка массива
         Arrays.sort(arr, (f, s) -> s.length() - f.length());
         System.out.println(Arrays.toString(arr));
-
+        
         Random rnd = new Random();
         LocalDate day = (rnd.nextInt(5) == 0) ? null : LocalDate.now();
         App app = new App(day);
