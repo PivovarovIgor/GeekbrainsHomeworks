@@ -7,6 +7,8 @@ public class App {
 
     public static void main(String[] args) {
 
+        System.out.println(Runtime.getRuntime().availableProcessors());
+
         Thread[] t = new Thread[6];
 
         var cnt = new Counter();
